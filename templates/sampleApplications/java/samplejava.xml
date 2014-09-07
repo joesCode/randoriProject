@@ -1,0 +1,56 @@
+<test>
+<types><a>java</a></types>
+<dynamic>
+		<var>		
+			<dependencies>
+			</dependencies>
+			<type>name</type>
+			<name>name</name>
+			<fileType>java</fileType>
+			<content>Alice </content>
+			<k>This file is for Alice</k>
+		</var>
+		<var>		
+			<dependencies>
+			</dependencies>
+			<type>name</type>
+			<name>name</name>
+			<fileType>java</fileType>
+			<content>Bob </content>
+			<k>This file is for Alice</k>
+		</var>
+		<var>		
+			<dependencies>
+			</dependencies>
+			<type>name</type>
+			<name>name</name>
+			<fileType>java</fileType>
+			<content>Charlie </content>
+			<k>This file is for Alice</k>
+		</var>
+</dynamic>
+<static>
+<fileType>java</fileType>
+<content>
+public class </content>
+</static>
+<addVar><name>fileNum</name><fileType>java</fileType></addVar>
+<static>
+<fileType>java</fileType>
+<content> {
+
+    public static void main(String[] args) {
+        System.out.println("Hello, </content></static>
+<addVar>
+	<name>name</name>
+	<fileType>java</fileType>
+</addVar>		
+<static>
+<fileType>java</fileType>
+<content>");
+    }
+
+}
+</content>
+</static>
+</test>

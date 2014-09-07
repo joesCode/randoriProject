@@ -1,0 +1,305 @@
+<authN>
+<types><a>py</a><b>password.password</b></types>
+<dynamic>
+		<var>	<dependencies></dependencies>	
+			<type>hash</type>
+			<name>md5</name>
+			<fileType>py</fileType>
+			<content>	m = hashlib.md5()
+	m.update(password)
+	passHash = m.hexdigest()
+	passHash64 = base64.b64encode(str(passHash))
+	return passHash64</content>
+			<k>This is an unsalted md5 hash. 
+This is not a secure hashing algorithm. 
+Hashes should be salted.</k>
+		</var>
+		<var>	<dependencies></dependencies>	
+			<type>hash</type>
+			<name>sha1</name>
+			<fileType>py</fileType>
+			<content>m = hashlib.sha1()
+	m.update(password)
+	passHash = m.hexdigest()
+	passHash64 = base64.b64encode(str(passHash))
+	return passHash64</content>
+			<k>This is an unsalted sha1 hash. 
+This is not a secure hashing algorithm. \nHashes should be salted.</k>
+		</var>
+		<var>	<dependencies></dependencies>
+			<type>hash</type>
+			<name>sha256</name>
+			<fileType>py</fileType>
+			<content>	m = hashlib.sha256()
+	m.update(password)
+	passHash = m.hexdigest()
+	passHash64 = base64.b64encode(str(passHash))
+	return passHash64</content>
+			<k>This is an unsalted sha256 hash. 
+Hashes should be salted.</k>
+		</var>
+		<var>	<dependencies></dependencies>	
+			<type>hash</type>
+			<name>base64</name>
+			<fileType>py</fileType>
+			<content>	passHash64 = base64.b64encode(password)
+	return passHash64</content>
+			<k>This is base 64 not a hash. This is not a hashing algorithm. This is encoding. Hashes should be used and salted.</k>
+		</var>
+</dynamic>
+<dynamic>
+		<var>		
+			<dependencies>
+<dep>md5</dep>
+			</dependencies>
+			<type>passWordHash</type>
+			<name>passWordHash</name>
+			<fileType>password</fileType>
+			<content>admin:NWY0ZGNjM2I1YWE3NjVkNjFkODMyN2RlYjg4MmNmOTk=</content>
+			<k>The password is stored locally. 
+The password file is accessible by the user. 
+The password is an md5 hash of 'password'</k>
+		</var>
+</dynamic>
+<dynamic>
+<var>		
+			<dependencies>
+<dep>md5</dep>
+			</dependencies>
+			<type>passWordHash</type>
+			<name>passWordHash</name>
+			<fileType>password</fileType>
+			<content>admin:MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY=</content>
+			<k>The password is stored locally. 
+The password file is accessible by the user. 
+The password is an md5 hash of 'test'</k>
+		</var>
+</dynamic>
+<dynamic>
+<var>		
+			<dependencies>
+<dep>md5</dep>
+			</dependencies>
+			<type>passWordHash</type>
+			<name>passWordHash</name>
+			<fileType>password</fileType>
+			<content>admin:MjEyMzJmMjk3YTU3YTVhNzQzODk0YTBlNGE4MDFmYzM=</content>
+			<k>The password is stored locally. 
+The password file is accessible by the user. 
+The password is an md5 hash of 'test'</k>
+		</var>
+</dynamic>
+<dynamic>
+		<var>		
+			<dependencies>
+<dep>base64</dep>
+			</dependencies>
+			<type>passWordHash</type>
+			<name>passWordHash</name>
+			<fileType>password</fileType>
+			<content>admin:cGFzc3dvcmQ=</content>
+			<k>The password is stored locally. 
+The password file is accessible by the user. 
+The password is an base64 hash of 'password'</k>
+		</var>
+</dynamic>
+<dynamic>
+<var>		
+			<dependencies>
+<dep>base64</dep>
+			</dependencies>
+			<type>passWordHash</type>
+			<name>passWordHash</name>
+			<fileType>password</fileType>
+			<content>admin:dGVzdA==</content>
+			<k>The password is stored locally. 
+The password file is accessible by the user. 
+The password is an base64 hash of 'test'</k>
+		</var>
+</dynamic>
+<dynamic>
+<var>		
+			<dependencies>
+<dep>base64</dep>
+			</dependencies>
+			<type>passWordHash</type>
+			<name>passWordHash</name>
+			<fileType>password</fileType>
+			<content>admin:YWRtaW4=</content>
+			<k>The password is stored locally. 
+The password file is accessible by the user. 
+The password is an base64 hash of 'test'</k>
+		</var>
+<var>		
+			<dependencies>
+<dep>sha1</dep>
+			</dependencies>
+			<type>passWordHash</type>
+			<name>passWordHash</name>
+			<fileType>password</fileType>
+			<content>admin:NWJhYTYxZTRjOWI5M2YzZjA2ODIyNTBiNmNmODMzMWI3ZWU2OGZkOA==</content>
+			<k>The password is stored locally. 
+The password file is accessible by the user. 
+The password is an sha1 hash of 'password'</k>
+		</var>
+</dynamic>
+<dynamic>
+<var>		
+			<dependencies>
+<dep>sha1</dep>
+			</dependencies>
+			<type>passWordHash</type>
+			<name>passWordHash</name>
+			<fileType>password</fileType>
+			<content>admin:YTk0YThmZTVjY2IxOWJhNjFjNGMwODczZDM5MWU5ODc5ODJmYmJkMw==</content>
+			<k>The password is stored locally. 
+The password file is accessible by the user. 
+The password is an sha1 hash of 'test'</k>
+		</var>
+</dynamic>
+<dynamic>
+<var>		
+			<dependencies>
+<dep>sha1</dep>
+			</dependencies>
+			<type>passWordHash</type>
+			<name>passWordHash</name>
+			<fileType>password</fileType>
+			<content>admin:ZDAzM2UyMmFlMzQ4YWViNTY2MGZjMjE0MGFlYzM1ODUwYzRkYTk5Nw==</content>
+			<k>The password is stored locally. 
+The password file is accessible by the user. 
+The password is an sha1 hash of 'test'</k>
+		</var>
+<var>		
+			<dependencies>
+<dep>sha256</dep>
+			</dependencies>
+			<type>passWordHash</type>
+			<name>passWordHash</name>
+			<fileType>password</fileType>
+			<content>admin:NWU4ODQ4OThkYTI4MDQ3MTUxZDBlNTZmOGRjNjI5Mjc3MzYwM2QwZDZhYWJiZGQ2MmExMWVmNzIxZDE1NDJkOA==</content>
+			<k>The password is stored locally. 
+The password file is accessible by the user. 
+The password is an sha256 hash of 'password'</k>
+		</var>
+</dynamic>
+<dynamic>
+<var>		
+			<dependencies>
+<dep>sha256</dep>
+			</dependencies>
+			<type>passWordHash</type>
+			<name>passWordHash</name>
+			<fileType>password</fileType>
+			<content>admin:OWY4NmQwODE4ODRjN2Q2NTlhMmZlYWEwYzU1YWQwMTVhM2JmNGYxYjJiMGI4MjJjZDE1ZDZjMTViMGYwMGEwOA==</content>
+			<k>The password is stored locally. 
+The password file is accessible by the user. 
+The password is an sha256 hash of 'test'</k>
+		</var>
+</dynamic>
+<dynamic>
+<var>		
+			<dependencies>
+<dep>sha256</dep>
+			</dependencies>
+			<type>passWordHash</type>
+			<name>passWordHash</name>
+			<fileType>password</fileType>
+			<content>admin:OGM2OTc2ZTViNTQxMDQxNWJkZTkwOGJkNGRlZTE1ZGZiMTY3YTljODczZmM0YmI4YTgxZjZmMmFiNDQ4YTkxOA==</content>
+			<k>The password is stored locally. 
+The password file is accessible by the user. 
+The password is an sha256 hash of 'test'</k>
+		</var>
+</dynamic>
+<dynamic>
+<var>
+<type>banner</type>
+<name>bannerPresent</name>
+<fileType>py</fileType>
+			<content>
+print "This system is for authorized use only."</content>
+			<k> </k>
+</var>
+<var>
+<type>banner</type>
+<name>bannerNotPresent</name>
+<fileType>py</fileType>
+			<content> </content>
+			<k> 
+There is no security warning or banner for users accessing this system</k>
+</var>
+</dynamic>
+<dynamic>
+<var>
+<type>passwordIn</type>
+<name>passwordIn</name>
+<fileType>py</fileType>
+			<content>
+username = str(raw_input("Please enter your username: "))
+password = str(raw_input("Please enter your password: "))</content>
+			<k> 
+The password should be masked when entered by the user to prevent shoulder surfing.</k>
+</var>
+<var>
+<type>passwordIn</type>
+<name>passwordIn</name>
+<fileType>py</fileType>
+			<content>
+username = str(raw_input("Please enter your username: "))
+password = getpass.getpass()</content>
+			<k> </k>
+</var>
+</dynamic>
+<static>
+<fileType>py</fileType>
+<content>
+import hashlib
+import base64
+import getpass
+
+def hashIt(password):
+</content>
+</static>
+<addVar>
+	<name>hash</name>
+	<fileType>py</fileType>
+</addVar>
+<addVar>
+	<name>passWordHash</name>
+	<fileType>password</fileType>
+</addVar>
+<addVar>
+	<name>banner</name>
+	<fileType>py</fileType>
+</addVar>
+<addVar>
+	<name>passwordIn</name>
+	<fileType>py</fileType>
+</addVar>
+<static>
+<fileType>py</fileType>
+<content>
+g = open("</content>
+</static>
+<addVar><name>fileNum</name></addVar>
+<static>
+<filetype>py</filetype>
+<content>.password", 'r+')
+authenticated = False
+userFound = False
+
+#lookup the username
+for line in g:
+	if line.find(username) != -1:
+		userFound = True
+		verifyPass = hashIt(password)
+		if verifyPass in line:
+			authenticated = True
+if userFound == False:
+	print "This user was not found"
+if authenticated == True:
+	print "Access granted"
+else:
+	print "Access denied"</content>
+</static>
+</authN>

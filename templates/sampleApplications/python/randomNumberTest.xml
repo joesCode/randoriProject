@@ -1,0 +1,190 @@
+<randomNumberTest>
+<types><a>py</a></types>
+<dynamic>
+		<var>	<dependencies></dependencies>	
+			<type>a</type>
+			<name>b</name>
+			<fileType>py</fileType>
+			<content>
+def makeRand(count):
+	res = []
+	while count > 0:
+		t = str(int(time.time()))
+		m = hashlib.md5(t)
+		hashA = m.hexdigest()
+		hashB = str(hashA)
+		res.append(hashB)
+		count = count -1
+	return res</content>
+			<k>This is an md5 hash of the time.These are all the same number.</k>
+</var>
+<var>	<dependencies></dependencies>	
+			<type>a</type>
+			<name>c</name>
+			<fileType>py</fileType>
+			<content>
+def makeRand(count):
+	res = []
+	num = 1
+	while count > 0:
+		t = num
+		res.append(num)
+		num = 1+ num
+		count = count -1
+	return res</content>
+			<k>This is rolling counter.</k>
+</var>
+<var>	<dependencies></dependencies>	
+			<type>a</type>
+			<name>d</name>
+			<fileType>py</fileType>
+			<content>
+def makeRand(count):
+	res = []
+	seed = "s3cur3r4nd0"
+	random.seed(seed) 
+	while count > 0:
+		num = random.randint(1,10)
+		res.append(num)
+		count = count -1
+	return res</content>
+			<k>This is a random number between 1 and 10 that has been seeded such that the numbers are predictable.</k>
+</var>
+<var>	<dependencies></dependencies>	
+			<type>a</type>
+			<name>e</name>
+			<fileType>py</fileType>
+			<content>
+def makeRand(count):
+	res = []
+	seed = "s3cur3r4nd0"
+	random.seed(seed) 
+	while count > 0:
+		num = random.randint(1,100)
+		res.append(num)
+		count = count -1
+	return res</content>
+			<k>This is a random number between 1 and 100 that has been seeded such that the numbers are predictable.</k>
+</var>
+<var>	<dependencies></dependencies>	
+			<type>a</type>
+			<name>f</name>
+			<fileType>py</fileType>
+			<content>
+def makeRand(count):
+	res = []
+	seed = "s3cur3r4nd0"
+	random.seed(seed) 
+	while count > 0:
+		num = random.randint(1,1000)
+		res.append(num)
+		count = count -1
+	return res</content>
+			<k>This is a random number between 1 and 1000 that has been seeded such that the numbers are predictable.</k>
+</var>
+<var>	<dependencies></dependencies>	
+			<type>a</type>
+			<name>g</name>
+			<fileType>py</fileType>
+			<content>
+def makeRand(count):
+	res = []
+	seed = "s3cur3r4nd0"
+	random.seed(seed) 
+	while count > 0:
+		num = random.randint(1,100000)
+		res.append(num)
+		count = count -1
+	return res</content>
+			<k>This is a random number between 1 and 100000 that has been seeded such that the numbers are predictable.</k>
+</var>
+<var>	<dependencies></dependencies>	
+			<type>a</type>
+			<name>h</name>
+			<fileType>py</fileType>
+			<content>
+def makeRand(count):
+	res = []
+	seed = "s3cur3r4nd0"
+	random.seed(seed) 
+	while count > 0:
+		num = random.randint(1,100000)
+		m = hashlib.md5(str(num))
+		hashA = m.hexdigest()
+		hashB = str(hashA)
+		res.append(hashB)
+		res.append(num)
+		num = 1+ num
+		count = count -1
+	return res</content>
+			<k>This is a md5 hash of a random number between 1 and 100000 that has been seeded such that the numbers are predictable.</k>
+</var>
+<var>	<dependencies></dependencies>	
+			<type>a</type>
+			<name>i</name>
+			<fileType>py</fileType>
+			<content>
+def makeRand(count):
+	res = []
+	seed = "s3cur3r4nd0"
+	random.seed(seed) 
+	num = random.randint(1,100000)
+	othNum = random.randint(1,100000)
+	while count > 0:
+		m = hashlib.md5(str(num))
+		hashA = m.hexdigest()
+		hashB = str(hashA)
+		res.append(hashB)
+		res.append(num)
+		num = 1+ othNum
+		count = count -1
+	return res</content>
+			<k>This is a md5 hash of a random number between 1 and 100000 that starts a counter that has been seeded such that the numbers are predictable.</k>
+</var>
+<var>	<dependencies></dependencies>	
+			<type>a</type>
+			<name>j</name>
+			<fileType>py</fileType>
+			<content>
+def makeRand(count):
+	res = []
+	seed = "s3cur3r4nd0"
+	random.seed(seed) 
+	num = random.randint(1,100000)
+	othNum = random.randint(1,100000)
+	while count > 0:
+		res.append(num)
+		num = 1+ othNum
+		count = count -1
+	return res</content>
+			<k>This is a random number between 1 and 100000 that starts a counter that has been seeded such that the numbers are predictable.</k>
+</var>
+</dynamic>
+
+<static>
+<fileType>py</fileType>
+<content>
+import time
+import hashlib
+import base64
+import random</content>
+</static>
+<addVar>
+	<name>a</name>
+	<fileType>py</fileType>
+</addVar>
+<static>
+<fileType>py</fileType>
+<content>
+print "**********************************************"
+print "secureRando - a secure random number generator"
+print "**********************************************"
+count = 10000
+f = open("result.csv",'w')
+result = makeRand(count)
+for res in result:
+	f.write (str(res)+"\n")
+	print res
+</content>
+</static>
+</randomNumberTest>

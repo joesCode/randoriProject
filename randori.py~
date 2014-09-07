@@ -1,0 +1,363 @@
+#####################################################################################################
+#    ...  .,MMMM..MMM                                                            
+#  .MMMMMMMMMMMMM.MMM                                                            
+#  .ZMMMMMMM      MMM         MMMMMMMMMMMMMM   ..    .         .,.        .      
+#    .   MMM.     MMM         MMMMMMMMMMMMMMMMMMMMMMM           MMM     OMM      
+#  MMMMMMMMMMNMMMMMMM            MM    MM   ......~MM.         ?MM      .MM      
+#  MMMMMMMMMMMMMMMMMM            MM....MM  ..M.   MMM          MM.      .MM      
+# .......MMM  ....MMM            MMMMMMMM  .MM.   MM.          MM.      .MM      
+#        MMM.     MMM            MM... MM  .ZMM  MMM           MM ~      MM.     
+#    MMMMMMMMMMMM MMM            MM....MM    MM, MM .          MM M..   .MM      
+#  . MMMMMMMMMMMM.MMM            MMMMMMMM   ..MMMMM            MMMM     .MM.     
+#  . MMM.     MMM.MMM    7MM=.   MM    MM     NMMM.            MMM      =MM      
+#  . MMM.     MMM.MMM    DMMM    MM..  MM   ..MMMMI            MMM    ..MM$      
+#  . MMM.     MMM.MMM   .MMMZ.. .MMMMMMMM    MMM.MMM                  .DMM       
+#  . MMMMMMMMMMMM.MMMMMMMMMM..ZMMMMMM? MM   MMM .,MMM.                .MM        
+#  . MMMMMMMMMMMM. MMMMMMMMM  .M       MM .MMM.    NMM,.            ,8MM,        
+#    MMM      .  . .  .. .            .MM .MM.      Z              .$MM.         
+#
+#
+#    randori - an information security training program -                                     .   .                               
+#
+#####################################################################################################
+import sys, getopt
+import xml.etree.ElementTree as ET
+import random
+#Vulnerability class for storing a vulnerabilty and its related key
+class vulnerability(object):
+    def __init__(self,vuln,key,typeOf,name,fileType):
+        self.vuln=vuln
+        self.key=key
+	self.typ = typeOf
+	self.nam = name 
+	self.fil = fileType
+
+def main(argv):
+	templateName = ''
+	num = 1
+	diagnostic = False
+	count = 0
+	for arg in argv:
+		if diagnostic == True:
+			print arg
+		if arg == "-h":
+			print "python randori.py -t <template.xml> -n <number of files> -d <run in diagnostic mode> -h <help> "
+			sys.exit(2)
+		if arg == "-i":
+			templateName = argv[count+1]
+		if arg == "-n":
+			num = str(argv[count+1])
+		if arg == "-d":
+			diagnostic = True
+			num = 1
+		count = count + 1
+	if diagnostic == True:
+		print "###############################################################"
+		print "randori diagnostic engine" 
+		print "###############################################################"
+	if diagnostic == False:
+		print "###############################################################"
+		print "randori engine" 
+		print "###############################################################"  
+	print "Here is the file name "+templateName
+	numberToMake = 1
+	num = int(numberToMake)
+	while num >0:
+		#testFile = open(templateName, 'r')	
+		#open the template file
+		#template = testFile.read()
+		#print template
+		#load the template into a tree
+		try:
+			tree = ET.parse(templateName)
+		except Exception as inst:
+			print "Invalid xml:"
+			print inst
+			sys.exit(2)
+		root = tree.getroot()
+		#print root.text
+		#Convert the number to string	
+		numString = str(num)
+		#####################################
+		#MAKE THE OUPUT FILE(S)
+		#####################################
+		#FILES
+		#####################################
+		#pull the filetype(s)
+		fileNames =[]
+		for content in root:
+			#print content.tag
+		     	if content.tag == "types":
+				for childContent in content:
+					fileType = childContent.text
+					#create a file named num + filetype
+					fileName = numString+"."+fileType
+					outputFile = open(fileName,'w')
+					outputFile.close()
+					#load the new file into an array of filenames
+					fileNames.append(fileName)
+		######################################
+		#MAKE THE KEY FILE
+		######################################
+		#Create the KEY file
+		fileKeyName = numString+"KEY.txt"
+		#Open the KEY file
+		outputKeyFile = open(fileKeyName,'w')
+		outputKeyFile.close()
+		#Make an array for adding dynamic variables
+		variables = []
+		#Add the number of the file as a possible variable for all files to be created
+		#so that self referencing files can be created
+		for fils in fileNames:
+			#print fils
+			v = str(num)
+			k = " "	
+			ty = "fileNum"
+			n = "fileNum"
+			fileType = fils	
+			#print fils			
+			#Create the object
+			t=vulnerability(v,k,ty,n,fileType)
+			#add the object to the array of variables
+			variables.append(t)
+		#########################################################################################
+		#PROCESS THE FILES
+		#########################################################################################
+		#From left to right...
+		for content in root:
+		#Pull the contents of the xml...
+			#################################################################################
+			#LOAD THE VARIABLES THAT WILL BE IN THE FILE
+			#################################################################################
+			#Dynamic variables
+			#################################################################################
+			#Load the variables...
+			if content.tag == "dynamic":
+				if diagnostic == True:
+					print "We have encountered a dynamic variable"
+				test = []
+				for childContent in content:
+					#print childContent.tag+" starts here"
+					objectParamCount = 0
+					dependenciesCount = 0
+					for childChildContent in childContent:
+						################################################################
+						#CREATE A VARIABLE OBJECT
+						################################################################
+						if diagnostic == True:
+							print "We are loading the variable"		
+						#Load the vulnerability
+						#print str(childContent.tag)
+						if childChildContent.tag == "content":
+							v = childChildContent.text
+							if diagnostic == True:
+								print v
+							objectParamCount = objectParamCount + 1
+						#Load the key
+						if childChildContent.tag == "k":
+							k = childChildContent.text
+							if diagnostic == True:
+								print k
+							objectParamCount = objectParamCount + 1
+						#Load the type
+						if childChildContent.tag == "type":
+							ty = childChildContent.text
+							if diagnostic == True:
+								print ty
+							objectParamCount = objectParamCount + 1
+						#Load the name
+						if childChildContent.tag == "name":
+							n = childChildContent.text
+							if diagnostic == True:
+								print n
+							objectParamCount = objectParamCount + 1
+						#Load the file
+						if childChildContent.tag == "fileType":
+							fileType = childChildContent.text
+							if diagnostic == True:
+								print fileType
+							objectParamCount = objectParamCount + 1
+						################################################################
+						#DEPENDENCIES
+						################################################################
+						#verify dependencies are present
+						#count of dependencies
+						#array to store dependencies
+						#Load and count the dependencies
+						if diagnostic == True:
+							print "We are verifying the dependencies"
+						if childChildContent.tag == "dependencies":
+							depArray = []
+							if diagnostic == True:
+								print "There should be some dependencies for this variable"
+							for childChildChildContent in childChildContent:
+								if diagnostic == True:
+									print "Here is a dependency "+str(childChildChildContent.text)
+								dependenciesCount = dependenciesCount + 1
+								depArray.append(childChildChildContent.text)
+							if diagnostic == True:
+								print "Here are the dependencies for this variable:"						
+								print depArray
+						#If there are depencies to be considered when adding this varaible, 
+						#Then verify that these dependencies are present
+						#Compare dependenices in the array to the files all ready in the array of variables
+						if dependenciesCount == 0 and objectParamCount%5 == 0 and objectParamCount > 0:
+							t=vulnerability(v,k,ty,n,fileType)
+							test.append(t)
+							if diagnostic == True:
+								print "we are adding "+t.nam
+						if dependenciesCount > 0 and objectParamCount%5 == 0 and objectParamCount > 0:
+							#print "There are dependencies"
+							#print depArray
+							dependenciesPresentCount = 0
+							for var in variables:
+								for dep in depArray:
+									if diagnostic == True:
+										print "let us compare "+var.nam+" and "+dep
+									if var.nam == dep:
+										if diagnostic == True:
+											print "The dependencies match !"
+										#print "Add one"
+										dependenciesPresentCount = dependenciesPresentCount + 1
+							#If the count of dependencies present is equal to the depensdeneices that should be present,
+							#Then the 
+							if diagnostic == True:
+								print "Is "+str(dependenciesPresentCount)+" == "+str(dependenciesCount)+" ?"
+								print "We have "+str(objectParamCount)+" object params"
+							if dependenciesPresentCount >= 	dependenciesCount and objectParamCount%5 == 0 and objectParamCount > 0:	
+								#Create the object
+								t=vulnerability(v,k,ty,n,fileType)
+								test.append(t)
+				if len(test) > 1:
+					rand = random.randint(0,len(test)-1)
+					outVulnerability = test[rand]
+					variables.append(outVulnerability)
+					if diagnostic == True:
+						print "And now we have added a vuln: "+str(outVulnerability.nam)
+				else:
+					variables.append(t)
+			########################################################################
+			#Static Variables
+			########################################################################
+			#If the static content is present
+			#print "There are now "+str(len(variables))+" variables"
+			if content.tag == "static":
+				if diagnostic == True:	
+					print "Static content is being added"		
+				fileThatWillBeOpened = ""
+				for childContent in content:
+					#Pull the filetype
+					if childContent.tag == "fileType":
+						fileToAddTo = childContent.text
+						#find the file to be added to in the array of files
+						#and open it
+						for files in fileNames:
+							if files.find(fileToAddTo) > -1:
+								fileToAddTo = files
+				fileThatWillBeOpened = fileToAddTo			
+				outputFile = open(fileThatWillBeOpened,'a')
+				for childContent in content:
+					if childContent.tag == "content":	
+						outputFile.write(childContent.text)
+				outputFile.close()
+			########################################################################
+			#Adding Dynamic Variables
+			########################################################################
+			#If a dynamic Variable needs to be added
+			if content.tag == "addVar":
+				foundToAdd = False
+				if diagnostic == True:
+					print "We will now add a dynamic variables"
+				fileThatWillBeOpened = ""
+				for childContent in content:
+					#Pull the type name
+					if childContent.tag == "name":
+						nameToAdd = childContent.text
+					#Pull the filetype
+					if childContent.tag == "fileType":
+						fileToAddTo = childContent.text
+				if diagnostic == True:
+					print nameToAdd
+				if nameToAdd != "fileNum":
+					if diagnostic == True:
+						print "We will try to add "+nameToAdd+" to the "+fileToAddTo+" file"
+					#Look up the type in the var array
+					for var in variables:
+						#print var.typ
+						if diagnostic == True:
+							print "Now we will determine if "+nameToAdd+" matches "+var.typ
+						#print var.typ == nameToAdd
+						if var.typ == nameToAdd:
+							if diagnostic == True:
+								print "The variable is present"
+							#Pull the variable object out of the var array
+							#Pull the vulnerability out of the var
+							vulnToBeAdded = var.vuln
+							if diagnostic == True:
+								print vulnToBeAdded+" will be added"
+							#Pull the key out of the var
+							keyToBeAdded = var.key
+							#print keyToBeAdded
+							#Pull the name out of the var
+							nameToBeAdded = var.nam
+							#Pull the file type out of the var
+							fileToBeAddedTo = var.fil
+							if diagnostic == True:
+								print "Now we are looking for "+fileToBeAddedTo
+							for files in fileNames:
+								if files.find(fileToBeAddedTo) > -1:
+									if diagnostic == True:
+										print files+" is "+fileToBeAddedTo
+									fileToBeAddedTo = files
+									foundToAdd = True
+									break
+									#print "You should not see this"
+							#print fileToBeAddedTo
+							break
+				if nameToAdd == "fileNum":
+					if diagnostic == True:
+						print "A file number is being added to this file"
+					vulnToBeAdded = str(num)
+					if diagnostic == True:
+						print vulnToBeAdded+" will be added"
+					nameToBeAdded = "fileNum"
+					fileToBeAddedTo = fileToAddTo
+					keyToBeAdded = " "
+					foundToAdd = True
+				if foundToAdd == True:
+					fileThatWillBeOpened = fileToBeAddedTo
+					#Open the correct file		
+					outputFile = open(fileThatWillBeOpened,'a')
+					#Write the vulnerability out to the file
+					if diagnostic == True:
+						print vulnToBeAdded+" will be added to "+fileThatWillBeOpened
+					outputFile.write(vulnToBeAdded)
+					#Close the file
+					outputFile.close()
+					#Open the key file
+					outputKeyFile = open(fileKeyName,'a')
+					#Write the key out to the key file	
+					outputKeyFile.write(keyToBeAdded)
+					#Close the file
+					outputKeyFile.close()
+
+		num = num -1
+		if diagnostic == False:
+			print "The files have been created" 
+
+if __name__ == "__main__":
+	main(sys.argv)
+
+#    copyright joseph stites
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.

@@ -1,0 +1,84 @@
+<test>
+<types><a>txt</a></types>
+<dynamic>
+		<var>		
+			<dependencies>
+			</dependencies>
+			<type>history</type>
+			<name>history</name>
+			<fileType>txt</fileType>
+			<content>These are history questions </content>
+			<k> </k>
+		</var>
+		<var>		
+			<dependencies>
+			</dependencies>
+			<type>math</type>
+			<name>math</name>
+			<fileType>txt</fileType>
+			<content>These are math questions </content>
+			<k> </k>
+		</var>
+</dynamic>
+<dynamic>
+		<var>		
+			<dependencies>
+			<dep>history</dep>
+			</dependencies>
+			<type>type2</type>
+			<name>president</name>
+			<fileType>txt</fileType>
+			<content>Question1: Who was the first president of the United States ? </content>
+			<k>Answer1: George Washington </k>
+		</var>
+		<var>		
+			<dependencies>
+			<dep>history</dep>
+			</dependencies>
+			<type>type2</type>
+			<name>date</name>
+			<fileType>txt</fileType>
+			<content>Question2: When is Independnece Day ? </content>
+			<k>Answer2: July 4</k>
+		</var>
+</dynamic>
+<dynamic>
+		<var>		
+			<dependencies>
+			<dep>math</dep>
+			</dependencies>
+			<type>type2</type>
+			<name>add</name>
+			<fileType>txt</fileType>
+			<content>2 + 2 =  </content>
+			<k>2 + 2 = 4</k>
+		</var>
+		<var>		
+			<dependencies>
+			<dep>math</dep>
+			</dependencies>
+			<type>type2</type>
+			<name>subtract</name>
+			<fileType>txt</fileType>
+			<content>3-2 = </content>
+			<k>3-2 = 1</k>
+		</var>
+</dynamic>
+<static>
+<fileType>txt</fileType>
+<content>
+This is a randomly generated quiz.
+</content>
+</static>
+<addVar>
+	<name>type1</name>
+	<fileType>txt</fileType>
+</addVar>		
+
+<addVar>
+	<name>type2</name>
+	<fileType>txt</fileType>
+</addVar>		
+
+
+</test>

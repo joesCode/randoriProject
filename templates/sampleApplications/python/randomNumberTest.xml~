@@ -1,0 +1,48 @@
+<randomNumberTest>
+<types><a>py</a></types>
+<dynamic>
+		<var>	<dependencies></dependencies>	
+			<type>a</type>
+			<name>b</name>
+			<fileType>py</fileType>
+			<content>
+def makeRand(count):
+	res = []
+	while count > 0:
+		t = str(int(time.time()))
+		m = hashlib.md5(t)
+		hashA = m.hexdigest()
+		hashB = str(hashA)
+		res.append(hashB)
+		count = count -1
+	return res</content>
+			<k>This is an md5 hash of the time.</k>
+</var>
+</dynamic>
+<static>
+<fileType>py</fileType>
+<content>
+import time
+import hashlib
+import base64
+import random</content>
+</static>
+<addVar>
+	<name>a</name>
+	<fileType>py</fileType>
+</addVar>
+<static>
+<fileType>py</fileType>
+<content>
+print "**********************************************"
+print "secureRando - a secure random number generator"
+print "**********************************************"
+count = 10000
+f = open("result.csv",'w')
+result = makeRand(count)
+for res in result:
+	f.write (str(res)+"\n")
+	print res
+</content>
+</static>
+</randomNumberTest>
